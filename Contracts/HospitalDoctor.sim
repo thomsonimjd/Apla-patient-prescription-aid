@@ -1,0 +1,28 @@
+contract HospitalDoctor {
+    data {
+       
+        Name string
+        RegNo int
+        Address string
+        Email string
+        Qualification string
+        Hospital string
+        Photo bytes "file"
+        Certificate bytes "file"
+      
+    }
+    conditions {
+
+    }
+    action {
+        
+        var photo_id string
+        var cert_id int
+     
+       cert_id = @1UploadBinary("Name,Data,ApplicationId", $Name, $Certificate, Int($RegNo))
+
+       photo_id = @1UploadBinary("Name,Data,ApplicationId", $Name, $Photo, Int(cert_id))
+ 
+       DBInsert("hospitaldoctor","name,email,address,regno,certificate,photo,qualification,hospital",$Name,$Email,$Address,$RegNo,photo_id,cert_id,$Qualification,$Hospital)
+    }
+}

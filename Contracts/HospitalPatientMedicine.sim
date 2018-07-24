@@ -1,0 +1,46 @@
+contract HospitalPatientMedicine {
+    data {
+        MedicineNameArr array
+        MedicineTimeArr array
+        MedicineQuanArr array
+        Doctor string
+        AdmissionId string
+        Name string
+        RegNo string
+        Comments string
+        Disease string
+        Scan bytes "optional hidden file"
+    }
+    conditions {
+
+    }
+    action {
+        var scan_id int;
+         var appid int
+         appid = Random(1000,1635131)
+        
+         scan_id = @1UploadBinary("Name,Data,ApplicationId", $RegNo, $Scan, Int(appid))
+
+        var med_id int
+        med_id = DBInsert("hospitalpatientmedicine","name,regno,comment,disease,scan,admission,dotor",$Name,$RegNo,$Comments,$Disease,scan_id,$AdmissionId,$Doctor)
+
+        DBUpdate("hosptialpatientadmission",Int($AdmissionId),"status","CLOSED")
+
+        var i int
+         while i < Len($MedicineNameArr) {
+            if Size($MedicineNameArr[i]) == 0 {
+               info("Medicine Name is empty")
+            }
+            if Size($MedicineTimeArr[i]) == 0 {
+               info("Medicine Time is empty")
+            }
+            if Size($MedicineQuanArr[i]) == 0 {
+               info("Medicine Quantity is empty")
+            }
+             DBInsert("hospitalpatientmedicinelist","patient_name,regno,medicine_id,admission_id,name,time,quantity",$Name,$RegNo,med_id,$AdmissionId,$MedicineNameArr[i],$MedicineTimeArr[i],$MedicineQuanArr[i])
+            Println($MedicineNameArr[i])
+           i = i + 1
+        }
+       
+    }
+}

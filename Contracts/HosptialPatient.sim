@@ -1,0 +1,28 @@
+contract HospitalPatient {
+    data {
+        Name string
+        Age string
+        Phone string
+        InsName string
+        InsNo int
+        Address string
+        Dob string
+        Photo bytes "file"
+        Email string
+        Gender string
+
+    }
+    conditions {
+
+    }
+    action {
+        var image_id int
+     
+       image_id = @1UploadBinary("Name,Data,ApplicationId", $Name, $Photo, Int($InsNo))
+
+       var regNo int
+       regNo = Random(10000,16849843135131)
+       DBInsert("hospitalpatient","name,email,address,age,dob,phone,insurance,insurancename,image,regno,gender",$Name,$Email,$Address,$Age,$Dob,$Phone,$InsNo,$InsName,image_id,regNo,$Gender)
+  
+    }
+}

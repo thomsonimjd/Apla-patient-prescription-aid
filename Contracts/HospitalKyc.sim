@@ -1,0 +1,18 @@
+contract HospitalKyc {
+    data {
+        Address string
+        Director string
+        RegNo string
+        Email string
+        Name string
+
+    }
+    conditions {
+       
+    }
+    action {
+
+        DBInsert("hospital","name,email,address,director,refno",$Name,$Email,$Address,$Director,$RegNo)
+ 
+    }
+}

@@ -1,0 +1,27 @@
+contract HospitalPatientAdmission {
+    data {
+       
+       name string
+       regno string
+        
+        Date string
+        Time string
+        Weight string
+        Height string
+        HealthCondition string
+        Illness string
+        Medication string
+        Allergies string
+        Surgery string
+        Reason string
+        Hospital string
+    }
+    conditions {
+
+    }
+    action {
+      
+        DBInsert("hosptialpatientadmission","name,regno,date,time,weight,height,healthcondition,illness,medication,surgery,allergies,reason,status,hospital",$name,$regno,$Date,$Time,$Weight,$Height,$HealthCondition,$Illness,$Medication,$Surgery,$Allergies,$Reason,"OPEN",$Hospital)
+    
+     }
+}
